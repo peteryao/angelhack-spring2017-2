@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import * as RTMClient from 'satori-rtm-sdk';
+import { Observable } from 'rxjs/Rx';
 
 import { SatoriService } from '../satori.service';
+import { Feedback } from '../feedback';
+
+import 'rxjs/Rx';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,44 +12,48 @@ import { SatoriService } from '../satori.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  public metricList: string[] = ['Email', 'Facebook', 'Twitter', 'Website'];
-  public rtm = new RTMClient('wss://lfo9a7g5.api.satori.com', '8bbD2E253D46856cD4F7F0b17d6FF262');
-  constructor() { }
+  public feedback$: Feedback[] = [];
+
+  public emailFeedback: Feedback[] = [];
+  public facebookFeedback: Feedback[] = [];
+  public twitterFeedback: Feedback[] = [];
+  public websiteFeedback: Feedback[] = [];
+
+  constructor(private satoriService: SatoriService) { }
 
   ngOnInit() {
-    this.initSatoriConnection();
+    this.refreshData();
   }
 
-  initSatoriConnection() {
-    // create a new subscription with "your-channel" name
+  private refreshData(): void {
     const self = this;
-    const channelName = 'angelhack';
-    const channel = this.rtm.subscribe(channelName, RTMClient.SubscriptionMode.SIMPLE, {
-      history: {count: 100}
+    this.satoriService.getFeedback().subscribe(res => {
+        console.log('refresh data');
+        for (const feedback of res) {
+          self.feedback$.push(feedback);
+          self.parseData(feedback);
+        }
+        this.subscribeToData();
     });
-
-    /* set callback for state transition */
-    channel.on('enter-subscribed', function () {
-      console.log('Subscribed to: ' + channel.subscriptionId);
-    });
-
-    /* set callback for PDU with specific action */
-    channel.on('rtm/subscription/data', function (pdu) {
-      console.log(pdu);
-      pdu.body.messages.forEach(function (msg) {
-        console.log('Got message: ', msg);
-      });
-    });
-
-    /* set callback for all subscription PDUs */
-    channel.on('data', function (pdu) {
-      console.log(pdu);
-      if (pdu.action.endsWith('/error')) {
-        console.log('Subscription is failed: ', pdu.body);
-      }
-    });
-
-    this.rtm.start();
   }
 
+  private subscribeToData(): void {
+      Observable.timer(5000).first().subscribe(() => this.refreshData());
+  }
+
+  private parseData(feedback: Feedback) {
+    console.log(feedback);
+    if (feedback.type.toLowerCase() === 'email') {
+      this.emailFeedback.push(feedback);
+    }
+    if (feedback.type.toLowerCase() === 'facebook') {
+      this.facebookFeedback.push(feedback);
+    }
+    if (feedback.type.toLowerCase() === 'twitter') {
+      this.twitterFeedback.push(feedback);
+    }
+    if (feedback.type.toLowerCase() === 'website') {
+      this.websiteFeedback.push(feedback);
+    }
+  }
 }

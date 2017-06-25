@@ -1,9 +1,10 @@
 <div fxLayout="row" fxLayoutAlign="space-between start">
-  <div *ngFor="let metric of metricList" fxFlex="23">
-    <app-metric title={{metric}}></app-metric>
-  </div>
+  <app-metric title="Twitter" [feedback]="twitterFeedback" fxFlex="23"></app-metric>
+  <app-metric title="Facebook" [feedback]="facebookFeedback" fxFlex="23"></app-metric>
+  <app-metric title="Email" [feedback]="emailFeedback" fxFlex="23"></app-metric>
+  <app-metric title="Website" [feedback]="websiteFeedback" fxFlex="23"></app-metric>
 </div>
 
 <div fxLayout="row" fxLayoutAlign="space-between center">
-  Stuff
+
 </div>

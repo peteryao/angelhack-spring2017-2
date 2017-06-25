@@ -1,3 +1,4 @@
 <md-card>
-  {{title}}
+  <span>{{title}}</span>
+  <span *ngIf="feedback.length > 0">{{feedback.length}}</span>
 </md-card>
