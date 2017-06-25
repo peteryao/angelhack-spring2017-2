@@ -21,6 +21,7 @@ import { FeedbackComponent } from './feedback/feedback.component';
 import { DetailFeedbackComponent } from './detail-feedback/detail-feedback.component';
 import { DashboardHeaderComponent } from './dashboard-header/dashboard-header.component';
 import { FilterFeedbackComponent } from './filter-feedback/filter-feedback.component';
+import { GraphComponent } from './graph/graph.component';
 
 const appRoutes: Routes = [
   {
@@ -36,12 +37,12 @@ const appRoutes: Routes = [
       {
         path: 'detail/:id',
         component: DetailFeedbackComponent,
-        data: {title: 'Detail Feedback'}
+        data: {title: 'Detail'}
       },
       {
         path: ':filter',
         component: FilterFeedbackComponent,
-        data: {title: 'Filtered Feedback'}
+        data: {title: 'Filtered'}
       }
     ]
   },
@@ -60,7 +61,8 @@ const appRoutes: Routes = [
     FeedbackComponent,
     DetailFeedbackComponent,
     DashboardHeaderComponent,
-    FilterFeedbackComponent
+    FilterFeedbackComponent,
+    GraphComponent
   ],
   imports: [
     BrowserModule,

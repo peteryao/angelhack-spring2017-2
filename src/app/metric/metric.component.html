@@ -1,4 +1,10 @@
-<md-card>
-  <span>{{title}}</span>
-  <span *ngIf="feedback.length > 0">{{feedback.length}}</span>
+<md-card [style.backgroundColor]="determineColor(title)">
+  <md-card-content>
+    <div fxLayoutAlight="row">
+    <h2>{{title}} <span *ngIf="feedback.length > 0" style="float: right;">{{feedback.length}}</span></h2>
+    </div>
+  </md-card-content>
+  <md-card-footer>
+    <button md-button style="float: right;">Filter</button>
+  </md-card-footer>
 </md-card>

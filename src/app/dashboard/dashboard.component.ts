@@ -57,4 +57,20 @@ export class DashboardComponent implements OnInit {
       this.feedbackService.websiteFeedback.push(feedback);
     }
   }
+
+  private determineColor(type: string) {
+    if (type === 'twitter') {
+      return '#55ACEE';
+    }
+    if (type === 'facebook') {
+      return '#3b5998';
+    }
+    if (type === 'email') {
+      return '#dd4b39';
+    }
+    if (type === 'website') {
+      return '#3ccfcf';
+    }
+    return '#6F6F6F';
+  }
 }

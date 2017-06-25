@@ -1,10 +1,16 @@
 <div fxLayout="row" fxLayoutAlign="space-between start" style="padding-top:20px;">
-  <app-metric title="Twitter" [feedback]="twitterFeedback" fxFlex="23"></app-metric>
-  <app-metric title="Facebook" [feedback]="facebookFeedback" fxFlex="23"></app-metric>
-  <app-metric title="Email" [feedback]="emailFeedback" fxFlex="23"></app-metric>
-  <app-metric title="Website" [feedback]="websiteFeedback" fxFlex="23"></app-metric>
+  <app-metric title="Twitter" [feedback]="twitterFeedback" fxFlex="23" [routerLink]="['/feedback/twitter']"></app-metric>
+  <app-metric title="Facebook" [feedback]="facebookFeedback" fxFlex="23" [routerLink]="['/feedback/facebook']"></app-metric>
+  <app-metric title="Email" [feedback]="emailFeedback" fxFlex="23" [routerLink]="['/feedback/email']"></app-metric>
+  <app-metric title="Website" [feedback]="websiteFeedback" fxFlex="23" [routerLink]="['/feedback/website']"></app-metric>
+</div>
+
+<div fxLayout="row" style="margin-top:25px;">
+  <div *ngFor="let feed of feedback$; let i = index">
+    <div style="height: 15px; width: 5px; border:0.5px solid black;" [style.backgroundColor]="determineColor(feed.type)" [routerLink]="['/feedback/detail/' + i]"></div>
+  </div>
 </div>
 
 <div fxLayout="row" fxLayoutAlign="space-between center">
-
+  <app-graph></app-graph>
 </div>

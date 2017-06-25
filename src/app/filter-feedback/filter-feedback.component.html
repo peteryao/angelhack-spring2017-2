@@ -1,3 +1,8 @@
-<p>
-  filter-feedback works!
-</p>
+<md-list>
+  <md-list-item *ngFor="let feed of activeFilter" style="border:0.5px solid black;"
+    [style.backgroundColor]="setColor(feed)">
+    <h4 md-line> {{feed.type}}</h4>
+    <p md-line> {{feed.message}} </p>
+  </md-list-item>
+  <md-divider></md-divider>
+</md-list>
