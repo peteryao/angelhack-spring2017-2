@@ -5,12 +5,15 @@
   <app-metric title="Website" [feedback]="websiteFeedback" fxFlex="23" [routerLink]="['/feedback/website']"></app-metric>
 </div>
 
-<div fxLayout="row" style="margin-top:25px;">
+<div fxLayout="row" style="margin-top:25px; height: 20px;">
   <div *ngFor="let feed of feedback$; let i = index">
     <div style="height: 15px; width: 5px; border:0.5px solid black;" [style.backgroundColor]="determineColor(feed.type)" [routerLink]="['/feedback/detail/' + i]"></div>
   </div>
 </div>
 
-<div fxLayout="row" fxLayoutAlign="space-between center">
-  <app-graph></app-graph>
+<div
+  style="height: 550px; border:0.5px solid black; overflow-y: scroll;">
+  <md-list *ngFor="let feed of feedbackService.feedback$" [style.backgroundColor]=determineColor(feed.type) style="border:0.1px solid black">
+    <md-list-item>{{feed.type}} - {{ feed.message }}</md-list-item>
+  </md-list>
 </div>

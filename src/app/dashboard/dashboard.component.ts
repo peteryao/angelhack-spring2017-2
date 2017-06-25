@@ -20,7 +20,7 @@ export class DashboardComponent implements OnInit {
   public twitterFeedback: Feedback[] = this.feedbackService.twitterFeedback;
   public websiteFeedback: Feedback[] = this.feedbackService.websiteFeedback;
 
-  constructor(private satoriService: SatoriService, private feedbackService: FeedbackService) { }
+  constructor(private satoriService: SatoriService, public feedbackService: FeedbackService) { }
 
   ngOnInit() {
     this.refreshData();
@@ -58,7 +58,7 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  private determineColor(type: string) {
+  public determineColor(type: string) {
     if (type === 'twitter') {
       return '#55ACEE';
     }
