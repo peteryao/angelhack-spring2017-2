@@ -73,4 +73,15 @@ export class DashboardComponent implements OnInit {
     }
     return '#6F6F6F';
   }
+
+  private updateData() {
+    this.feedbackService.emailFeedback = [];
+    this.feedbackService.facebookFeedback = [];
+    this.feedbackService.twitterFeedback = [];
+    this.feedbackService.websiteFeedback = [];
+
+    for (const temp of this.feedbackService.feedback$) {
+      this.parseData(temp);
+    }
+  }
 }
