@@ -1,19 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import * as RTMClient from 'satori-rtm-sdk';
 
-import { SatoriService } from '../satori.service';
+import { Feedback } from './feedback';
 
-@Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
-})
-export class DashboardComponent implements OnInit {
-  public metricList: string[] = ['Email', 'Facebook', 'Twitter', 'Website'];
+@Injectable()
+export class SatoriService {
   public rtm = new RTMClient('wss://lfo9a7g5.api.satori.com', '8bbD2E253D46856cD4F7F0b17d6FF262');
-  constructor() { }
-
-  ngOnInit() {
+  public feedback$: Feedback[];
+  constructor() {
     this.initSatoriConnection();
   }
 
@@ -26,20 +20,21 @@ export class DashboardComponent implements OnInit {
     });
 
     /* set callback for state transition */
-    channel.on('enter-subscribed', function () {
+    channel.on('enter-subscribed', () => {
       console.log('Subscribed to: ' + channel.subscriptionId);
     });
 
     /* set callback for PDU with specific action */
     channel.on('rtm/subscription/data', function (pdu) {
       console.log(pdu);
-      pdu.body.messages.forEach(function (msg) {
-        console.log('Got message: ', msg);
+      pdu.body.messages.forEach((res) => {
+        console.log('Got message: ', res);
+        this.feedback$.concat(new Feedback(res.type, res.message))
       });
     });
 
     /* set callback for all subscription PDUs */
-    channel.on('data', function (pdu) {
+    channel.on('data', (pdu) => {
       console.log(pdu);
       if (pdu.action.endsWith('/error')) {
         console.log('Subscription is failed: ', pdu.body);

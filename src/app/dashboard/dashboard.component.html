@@ -5,28 +5,5 @@
 </div>
 
 <div fxLayout="row" fxLayoutAlign="space-between center">
-  <div fxFlex="55">
-    <div style="display: block;">
-    <canvas baseChart width="200" height="200"
-                [datasets]="lineChartData"
-                [labels]="lineChartLabels"
-                [options]="lineChartOptions"
-                [colors]="lineChartColors"
-                [legend]="lineChartLegend"
-                [chartType]="lineChartType"
-                (chartHover)="chartHovered($event)"
-                (chartClick)="chartClicked($event)"></canvas>
-    </div>
-  </div>
-  <div fxFlex="30" style="margin-bottom: 10px">
-    <table class="table table-responsive table-condensed">
-      <tr>
-        <th *ngFor="let label of lineChartLabels">{{label}}</th>
-      </tr>
-      <tr *ngFor="let d of lineChartData">
-        <td *ngFor="let label of lineChartLabels; let j=index">{{d && d.data[j]}}</td>
-      </tr>
-    </table>
-    <button (click)="randomize()">CLICK</button>
-  </div>
+  Stuff
 </div>

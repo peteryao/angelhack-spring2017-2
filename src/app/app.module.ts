@@ -14,6 +14,8 @@ import { SidenavComponent } from './sidenav/sidenav.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MetricComponent } from './metric/metric.component';
 
+import { SatoriService } from './satori.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,7 +30,7 @@ import { MetricComponent } from './metric/metric.component';
     FlexLayoutModule,
     MaterialModule
   ],
-  providers: [],
+  providers: [SatoriService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
