@@ -1,5 +1,6 @@
-<md-list>
-  <md-list-item>Item 1</md-list-item>
-  <md-list-item>Item 2</md-list-item>
-  <md-list-item>Item 3</md-list-item>
+<md-list class="sidenav">
+  <div class="side-wrap">
+  <md-list-item [routerLink]="['dashboard']">Dashboard</md-list-item>
+  <md-list-item [routerLink]="['feedback']">Feedback</md-list-item>
+  </div>
 </md-list>

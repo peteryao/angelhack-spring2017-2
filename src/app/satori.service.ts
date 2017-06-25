@@ -8,6 +8,7 @@ import { Feedback } from './feedback';
 export class SatoriService {
   public rtm = new RTMClient('wss://lfo9a7g5.api.satori.com', '8bbD2E253D46856cD4F7F0b17d6FF262');
   public feedback$: Feedback[] = [];
+  public currentFeedback: Feedback[] = [];
   constructor() {
     this.initSatoriConnection();
   }

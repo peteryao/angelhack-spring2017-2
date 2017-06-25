@@ -3,6 +3,7 @@ import { Observable } from 'rxjs/Rx';
 
 import { SatoriService } from '../satori.service';
 import { Feedback } from '../feedback';
+import { FeedbackService } from '../feedback.service';
 
 import 'rxjs/Rx';
 
@@ -12,14 +13,14 @@ import 'rxjs/Rx';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  public feedback$: Feedback[] = [];
+  public feedback$: Feedback[] = this.feedbackService.feedback$;
 
-  public emailFeedback: Feedback[] = [];
-  public facebookFeedback: Feedback[] = [];
-  public twitterFeedback: Feedback[] = [];
-  public websiteFeedback: Feedback[] = [];
+  public emailFeedback: Feedback[] = this.feedbackService.emailFeedback;
+  public facebookFeedback: Feedback[] = this.feedbackService.facebookFeedback;
+  public twitterFeedback: Feedback[] = this.feedbackService.twitterFeedback;
+  public websiteFeedback: Feedback[] = this.feedbackService.websiteFeedback;
 
-  constructor(private satoriService: SatoriService) { }
+  constructor(private satoriService: SatoriService, private feedbackService: FeedbackService) { }
 
   ngOnInit() {
     this.refreshData();
@@ -30,7 +31,7 @@ export class DashboardComponent implements OnInit {
     this.satoriService.getFeedback().subscribe(res => {
         console.log('refresh data');
         for (const feedback of res) {
-          self.feedback$.push(feedback);
+          self.feedbackService.feedback$.push(feedback);
           self.parseData(feedback);
         }
         this.subscribeToData();
@@ -44,16 +45,16 @@ export class DashboardComponent implements OnInit {
   private parseData(feedback: Feedback) {
     console.log(feedback);
     if (feedback.type.toLowerCase() === 'email') {
-      this.emailFeedback.push(feedback);
+      this.feedbackService.emailFeedback.push(feedback);
     }
     if (feedback.type.toLowerCase() === 'facebook') {
-      this.facebookFeedback.push(feedback);
+      this.feedbackService.facebookFeedback.push(feedback);
     }
     if (feedback.type.toLowerCase() === 'twitter') {
-      this.twitterFeedback.push(feedback);
+      this.feedbackService.twitterFeedback.push(feedback);
     }
     if (feedback.type.toLowerCase() === 'website') {
-      this.websiteFeedback.push(feedback);
+      this.feedbackService.websiteFeedback.push(feedback);
     }
   }
 }
